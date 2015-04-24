@@ -32,15 +32,13 @@
                     </ul>
                 </li>
                 {% endif %}
-                {% if current_user.has_role('server_admin') %}
                 <li class="dropdown">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Server Admin<b class="caret"></b></a>
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Games<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li> <a href="{{url_for('.servers')}}">Game Servers</a></li> 
-                        <li> <a href="{{url_for('.listgames')}}">Latest Games</a></li>
+                        <li> <a href="{{url_for('ratings.listgames')}}">Latest Games</a></li>
+                        <li> <a href="{{url_for('ratings.servers')}}">Game Servers</a></li> 
                     </ul>
                 </li>
-                {% endif %}
                 {% if current_user.is_authenticated() %}
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle">Account<b class="caret"></b></a>
@@ -51,12 +49,14 @@
                 </li>
                 {% endif %}
             </ul>
-            {% if current_user.is_authenticated() %}
             <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated() %}
                 <li class="navbar-text">Logged in as {{current_user.email}}</li>
                 <li><a href="/logout">Logout</a></li>
+                {% else %}
+                <li><a href="/login?next=/">Log in</a></li>
+                {% endif %}
             </ul>
-            {% endif %}
         </div>
     </div>
 </nav>

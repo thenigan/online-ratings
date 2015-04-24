@@ -13,7 +13,6 @@ ratings = Blueprint("ratings", __name__)
 
 
 @ratings.route('/')
-@login_required
 def home():
     return render_template('index.html')
 
@@ -79,8 +78,6 @@ def servers():
     return render_template('servers.html', user=current_user, servers=servers)
 
 @ratings.route('/GoServer/<server_id>')
-@login_required
-@roles_required('ratings_admin')
 def server(server_id):
     server = GoServer.query.get(server_id)
     players = Player.query.filter(Player.server_id == server_id).limit(30).all()
